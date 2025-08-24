@@ -1,0 +1,13 @@
+Source: fancontrol
+Section: utils
+Priority: optional
+Maintainer: Aleksandrs Zolotarjovs <alexz005.info@gmail.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.1.3
+
+Package: fancontrol
+Architecture: all
+Depends: ${misc:Depends}, bash, lm-sensors
+Description: Simple linear fan control script for hwmon
+ This package installs a script + systemd service to control fan speed
+ based on CPU temperature, using hwmon sysfs interface.

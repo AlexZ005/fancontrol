@@ -1,0 +1,3 @@
+fancontrol usr/bin/
+fancontrol.conf etc/
+fancontrol.service lib/systemd/system/

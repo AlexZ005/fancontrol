@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# Paths
+HWMON=/sys/class/hwmon/hwmon0
+TEMP_SENSOR=$HWMON/temp1_input
+PWM=$HWMON/pwm1
+
+# Fan curve limits
+MIN_TEMP=40      # °C where fan starts ramping
+MAX_TEMP=70      # °C where fan is max
+MIN_PWM=36       # Minimum fan speed (stable spin)
+MAX_PWM=255      # Max fan speed
+
+# Enable manual mode
+echo 1 > $HWMON/pwm1_enable
+
+while true; do
+    # Read temperature (temp1_input is in millidegrees C)
+    rawtemp=$(cat $TEMP_SENSOR)
+    currentTemp=$((rawtemp / 1000))
+
+    # Default to min
+    newPWM=$MIN_PWM
+
+    if [ $currentTemp -ge $MAX_TEMP ]; then
+        newPWM=$MAX_PWM
+    elif [ $currentTemp -gt $MIN_TEMP ]; then
+        # Linear interpolation
+        newPWM=$(( ( (currentTemp - MIN_TEMP) * (MAX_PWM - MIN_PWM) / (MAX_TEMP - MIN_TEMP) ) + MIN_PWM ))
+    fi
+
+    echo $newPWM > $PWM
+
+    # Debug output (optional)
+    echo "Temp: ${currentTemp}°C -> Fan: $newPWM"
+
+    sleep 2
+done
+

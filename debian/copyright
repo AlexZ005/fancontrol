@@ -1,0 +1,7 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: fancontrol
+Source: https://github.com/AlexZ005/fancontrol
+
+Files: *
+Copyright: 2025 Alex Z
+License: MIT
