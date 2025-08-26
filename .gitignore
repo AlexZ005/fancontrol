@@ -1,0 +1,30 @@
+# Build artifacts
+*.o
+*.out
+*.log
+*.swp
+*.tmp
+
+# Debuild artifacts
+*.deb
+*.dsc
+*.build
+*.buildinfo
+*.changes
+*.substvars
+
+# Source tarballs
+*.orig.tar.*
+*.debian.tar.*
+
+# Debhelper and dpkg generated files
+debian/.debhelper/
+debian/debhelper-build-stamp
+debian/files
+debian/fancontrol/
+debian/fancontrol.substvars
+
+# Editor / OS junk
+*.DS_Store
+*~
+*.bak

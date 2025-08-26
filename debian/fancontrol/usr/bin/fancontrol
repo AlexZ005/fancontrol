@@ -1,15 +1,10 @@
 #!/bin/sh
 
-# Paths
+# Load config
+. /etc/fancontrol.conf
 HWMON=/sys/class/hwmon/hwmon0
 TEMP_SENSOR=$HWMON/temp1_input
 PWM=$HWMON/pwm1
-
-# Fan curve limits
-MIN_TEMP=40      # °C where fan starts ramping
-MAX_TEMP=70      # °C where fan is max
-MIN_PWM=36       # Minimum fan speed (stable spin)
-MAX_PWM=255      # Max fan speed
 
 # Enable manual mode
 echo 1 > $HWMON/pwm1_enable
@@ -29,11 +24,11 @@ while true; do
         newPWM=$(( ( (currentTemp - MIN_TEMP) * (MAX_PWM - MIN_PWM) / (MAX_TEMP - MIN_TEMP) ) + MIN_PWM ))
     fi
 
+    # Apply fan speed
     echo $newPWM > $PWM
 
-    # Debug output (optional)
-    echo "Temp: ${currentTemp}°C -> Fan: $newPWM"
+    # Log to systemd journal
+    logger -t fancontrol "Temp: ${currentTemp}°C -> Fan PWM: $newPWM"
 
-    sleep 2
+    sleep $INTERVAL
 done
-

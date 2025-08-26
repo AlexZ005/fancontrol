@@ -1,8 +1,8 @@
 Package: fancontrol
-Version: 0.1-1
+Version: 0.1-2
 Architecture: all
 Maintainer: Aleksandrs Zolotarjovs <alexz005.info@gmail.com>
-Installed-Size: 22
+Installed-Size: 21
 Depends: bash, lm-sensors
 Section: utils
 Priority: optional

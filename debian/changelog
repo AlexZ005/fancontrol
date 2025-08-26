@@ -1,5 +1,13 @@
+fancontrol (0.1-2) unstable; urgency=low
+
+  * Reading settings from config file
+  * Cleanup
+
+ -- Aleksandrs Zolotarjovs <alexz005.info@gmail.com>  Sat, 25 Aug 2025 00:10:00 +0300
+
 fancontrol (0.1-1) unstable; urgency=low
 
   * Initial release
 
  -- Aleksandrs Zolotarjovs <alexz005.info@gmail.com>  Sat, 16 Aug 2025 12:00:00 +0300
+
