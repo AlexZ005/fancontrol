@@ -1,3 +1,9 @@
+fancontrol (0.2) unstable; urgency=low
+
+  * Added configuration parameters to enable/disable fan controls
+
+ -- white <alexz005.info@gmail.com>  Tue, 26 Aug 2025 09:21:16 +0300
+
 fancontrol (0.1-2) unstable; urgency=low
 
   * Reading settings from config file

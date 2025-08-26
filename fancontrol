@@ -1,13 +1,20 @@
 #!/bin/sh
 
-# Load config
-. /etc/fancontrol.conf
-HWMON=/sys/class/hwmon/hwmon0
-TEMP_SENSOR=$HWMON/temp1_input
-PWM=$HWMON/pwm1
+# Load config file
+CONFIG_FILE="/etc/fancontrol.conf"
+if [ -f "$CONFIG_FILE" ]; then
+    . "$CONFIG_FILE"
+else
+    echo "Config file not found: $CONFIG_FILE"
+    exit 1
+fi
 
-# Enable manual mode
-echo 1 > $HWMON/pwm1_enable
+# If ENABLE_CONTROLS is set, toggle pwm1_enable
+if [ "$ENABLE_CONTROLS" = "1" ]; then
+    echo 1 > "$HWMON/pwm1_enable"
+else
+    echo 2 > "$HWMON/pwm1_enable"   # 2 = automatic mode
+fi
 
 while true; do
     # Read temperature (temp1_input is in millidegrees C)
@@ -25,7 +32,7 @@ while true; do
     fi
 
     # Apply fan speed
-    echo $newPWM > $PWM
+    [ "$ENABLE_CONTROLS" = "1" ] && echo $newPWM > $PWM
 
     # Log to systemd journal
     logger -t fancontrol "Temp: ${currentTemp}°C -> Fan PWM: $newPWM"

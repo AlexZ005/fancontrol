@@ -1,4 +1,0 @@
-d9c11bb5f83c51deeb36a84686d773a2  lib/systemd/system/fancontrol.service
-5755bcd1780dedc5fb36cb1cd12194d9  usr/bin/fancontrol
-f905b45fd99ad134fb2ed794a4dd0ec5  usr/share/doc/fancontrol/changelog.Debian.gz
-45f9d2c4e808cd50140a6a32c8651755  usr/share/doc/fancontrol/copyright
