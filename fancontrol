@@ -16,6 +16,9 @@ else
     echo 2 > "$HWMON/pwm1_enable"   # 2 = automatic mode
 fi
 
+# Restore auto mode on exit
+trap 'echo 2 > "$HWMON/pwm1_enable"; exit 0' INT TERM
+
 while true; do
     # Read temperature (temp1_input is in millidegrees C)
     rawtemp=$(cat $TEMP_SENSOR)
@@ -31,8 +34,12 @@ while true; do
         newPWM=$(( ( (currentTemp - MIN_TEMP) * (MAX_PWM - MIN_PWM) / (MAX_TEMP - MIN_TEMP) ) + MIN_PWM ))
     fi
 
+    # Cap PWM
+    [ "$newPWM" -lt 0 ] && newPWM=0
+    [ "$newPWM" -gt 255 ] && newPWM=255
+
     # Apply fan speed
-    [ "$ENABLE_CONTROLS" = "1" ] && echo $newPWM > $PWM
+    [ "$ENABLE_CONTROLS" = "1" ] && printf "%s" "$newPWM" > "$PWM"
 
     # Log to systemd journal
     logger -t fancontrol "Temp: ${currentTemp}°C -> Fan PWM: $newPWM"

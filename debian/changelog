@@ -1,3 +1,9 @@
+fancontrol (0.2-1) unstable; urgency=medium
+
+  *  [fix] on service stop change back to automatic mode
+
+ -- white <alexz005.info@gmail.com>  Tue, 26 Aug 2025 15:26:15 +0300
+
 fancontrol (0.2) unstable; urgency=low
 
   * Added configuration parameters to enable/disable fan controls
